@@ -1,0 +1,112 @@
+#include <iostream>
+#include "tinyxml.h"
+
+using namespace std;
+
+void tinyXmlWriteBookInfor() 
+{
+	const char* xmlFile = "Book_Infor_TinyXML_Write.xml";
+	TiXmlDocument doc;
+
+	//create xml document declaration
+	TiXmlDeclaration* decl = new TiXmlDeclaration("1.0", "utf-8", "");
+
+	//create xml comment
+	TiXmlComment* comment = new TiXmlComment("this is XML comment");
+
+
+	//create books node
+	TiXmlElement* bookElements = new TiXmlElement("books");
+
+	//create book node
+	TiXmlElement* bookElement1 = new TiXmlElement("book");
+	//set attribute for this node, key is category, value is web
+	bookElement1->SetAttribute("category", "WEB");
+
+	//create title node
+	TiXmlElement* titleElement = new TiXmlElement("title");
+	//set attribute for this node, key is lang, value is en
+	titleElement->SetAttribute("lang", "en");
+	//this node owns textnode:"Learing XML"
+	titleElement->LinkEndChild(new TiXmlText("Learning XML"));
+
+	//create author node
+	TiXmlElement* authorElement = new TiXmlElement("author");
+	//this node owns textnode:"Erik T.Ray"
+	authorElement->LinkEndChild(new TiXmlText("Erik T.Ray"));
+
+	//create year node
+	TiXmlElement* yearElement = new TiXmlElement("year");
+	yearElement->LinkEndChild(new TiXmlText("2003"));
+
+	//create price node
+	TiXmlElement* priceElement = new TiXmlElement("price");
+	priceElement->LinkEndChild(new TiXmlText("39.95"));
+
+	//set title, author, year, price as attributes for the node of book
+	bookElement1->LinkEndChild(titleElement);
+	bookElement1->LinkEndChild(authorElement);
+	bookElement1->LinkEndChild(yearElement);
+	bookElement1->LinkEndChild(priceElement);
+
+
+	//create one more book node
+	TiXmlElement* bookElement2 = new TiXmlElement("book");
+	//set attribute for this node, key is category, value is web
+	bookElement2->SetAttribute("category", "C++");
+
+	//create title node
+	titleElement = new TiXmlElement("title");
+	//set attribute for this node, key is lang, value is en
+	titleElement->SetAttribute("lang", "china");
+	//this node owns textnode:"Learing XML"
+	titleElement->LinkEndChild(new TiXmlText("windows core programming"));
+
+	//create author node
+	authorElement = new TiXmlElement("author");
+	//this node owns textnode:"Erik T.Ray"
+	authorElement->LinkEndChild(new TiXmlText("Jeffrey Richter"));
+
+	//create year node
+	yearElement = new TiXmlElement("year");
+	yearElement->LinkEndChild(new TiXmlText("2005"));
+
+	//create price node
+	priceElement = new TiXmlElement("price");
+	priceElement->LinkEndChild(new TiXmlText("59.95"));
+
+	//set title, author, year, price as attributes for the node of book
+	bookElement2->LinkEndChild(titleElement);
+	bookElement2->LinkEndChild(authorElement);
+	bookElement2->LinkEndChild(yearElement);
+	bookElement2->LinkEndChild(priceElement);
+
+	//set book for books node 
+	bookElements->LinkEndChild(bookElement1);
+	bookElements->LinkEndChild(bookElement2);
+
+	doc.LinkEndChild(decl);
+	doc.LinkEndChild(comment);
+	doc.LinkEndChild(bookElements);
+	doc.SaveFile(xmlFile);
+}
+
+
+
+int main()
+{
+
+	tinyXmlWriteBookInfor();
+
+
+
+
+
+
+
+
+
+	//cout << "Hello World!" << endl;
+	
+	return 0;
+}

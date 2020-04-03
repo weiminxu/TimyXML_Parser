@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<books>
+  <book category="WEB">
+    <title lang="en">Learning XML</title>
+    <author>Erik T.Ray</author>
+    <year>2003</year>
+    <price>39.95</price>
+  </book>
+
+  <book category ="c++">
+    <title lang="CHN">Windows Core Programming</title>
+    <author>Jeffrey Richter</author>
+    <year>2005</year>
+    <price>59.95</price>
+  </book>
+</books>
