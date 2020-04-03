@@ -91,20 +91,38 @@ void tinyXmlWriteBookInfor()
 	doc.SaveFile(xmlFile);
 }
 
+void tinyXmlReadBookInfor()
+{
+	cout << endl << "Read Tiny XML!" << endl;
 
+	char strError[1024];
+	memset(strError, '0', sizeof(strError));
+
+	const char* xmlFile = "Book_Infor_TinyXML.xml";
+	TiXmlDocument doc;
+	//using doc object to load xml into memory
+	if (doc.LoadFile(xmlFile, TIXML_ENCODING_UTF8))
+	{
+		doc.Print();
+	}
+	else
+	{
+		char error[126];
+		memset(strError, '0', sizeof(strError));
+		sprintf_s(error, "row:%d col:%d id:%d\n", doc.ErrorRow(), doc.ErrorCol(), doc.ErrorId());
+		strcpy_s(strError, error);
+		cout << strError;
+		return;
+	}
+	
+
+}
 
 int main()
 {
 
-	tinyXmlWriteBookInfor();
-
-
-
-
-
-
-
-
+	//tinyXmlWriteBookInfor();
+	tinyXmlReadBookInfor();
 
 	//cout << "Hello World!" << endl;
 	
