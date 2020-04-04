@@ -3,6 +3,69 @@
 
 using namespace std;
 
+
+void tinymentCircleAttributeGet(TiXmlElement* elementNode)
+{
+	TiXmlAttribute* categoryArribute = elementNode->FirstAttribute();
+	while (categoryArribute)
+	{
+		cout << "  (" << categoryArribute->Name() << ";" << categoryArribute->Value() << ")";
+		categoryArribute = categoryArribute->Next();
+	}
+}
+
+void tinyxmlCircleElementGet(TiXmlElement* element, int i = 1)
+{
+	if (element)
+	{
+		cout << "  ";
+		/*for (int m = 0; m < i; i++)
+		{
+			cout << "  ";
+		}*/
+
+		cout << element->Value();
+
+		const char* text = element->GetText();
+
+		tinymentCircleAttributeGet(element);
+
+		if (text)
+		{
+			cout << "  " << text;
+		}
+		cout << endl;
+		for (TiXmlElement* next = element->FirstChildElement(); next; next = next->NextSiblingElement())
+		{
+			tinyxmlCircleElementGet(next, i + 1);
+		}
+	}
+}
+
+void tinyxmlCircleNodeGet(TiXmlNode* node, int i = 1)
+{
+	if (node)
+	{
+		/*for (int m = 0; m < i; i++)
+		{
+			cout << "  ";
+		}*/
+		cout << "  ";
+		cout << node->Value();
+		TiXmlElement* element = node->ToElement();
+		if (element)
+		{
+			tinymentCircleAttributeGet(element);
+		}
+		cout << endl;
+
+		for (TiXmlNode* next = node->FirstChild(); next; next = next->NextSibling())
+		{
+			tinyxmlCircleNodeGet(next, i + 1);
+		}
+	}
+}
+
 void tinyXmlWriteBookInfor() 
 {
 	const char* xmlFile = "Book_Infor_TinyXML_Write.xml";
@@ -114,8 +177,20 @@ void tinyXmlReadBookInfor()
 		cout << strError;
 		return;
 	}
-	
 
+	
+	//obtain the root node 
+	TiXmlElement* rootElement = doc.RootElement();
+
+	if (!rootElement) { return; }
+
+	//the first iteration for element
+	/*cout << "tinyxmlCircleElementGet()" << endl;
+	tinyxmlCircleElementGet(rootElement);*/
+
+	//the second iteration for node
+	cout << "tinyxmlCircleNodeGet()" << endl;
+	tinyxmlCircleNodeGet(rootElement);
 }
 
 int main()
